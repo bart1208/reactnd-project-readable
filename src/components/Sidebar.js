@@ -1,36 +1,55 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setCategories, fetchCategories } from '../actions';
+import { fetchCategories } from '../actions';
 
 class Sidebar extends Component {
 
   componentWillMount() {
-    this.props.dispatchFetchCategories();
+    this.props.dispatchFetchCategories()
   }
 
   render() {
     return (
       <div className="sidebar">
-        <h3>Categories</h3>
-        <ul className="categories_list">
+        <h2>Categories</h2>
+        <ul className="categories-list">
           {this.props.categories.map((category) => (
             <li key={category.name}>
-              {category.name}
+              <Link
+                to={`/category/${category.name}`}
+                className={
+                  'categories-link' +
+                  (category.name === this.props.selectedCategory ? ' selected' : '')
+                }
+              >
+                {category.name}
+              </Link>
             </li>
           ))}
+          <li>
+            <Link
+              to="/"
+              className={
+                'categories-link' +
+                (!this.props.selectedCategory ? ' selected' : '')
+              }
+            >
+              all
+            </Link>
+          </li>
         </ul>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ categories, posts }) => ({
+const mapStateToProps = ({ categories }) => ({
   categories
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchFetchCategories: (data) => dispatch(fetchCategories(data))
+  dispatchFetchCategories: (data) => dispatch(fetchCategories(data)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Sidebar));

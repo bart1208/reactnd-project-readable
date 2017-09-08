@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Sidebar from './Sidebar';
-import MainContent from './MainContent';
+import PostsList from './PostsList';
+import Post from './Post';
 
 class App extends Component {
 
@@ -12,8 +13,29 @@ class App extends Component {
       <div className="App">
         <Route exact path='/' render={() => (
           <div className="content">
-            <Sidebar></Sidebar>
-            <MainContent></MainContent>
+            <Sidebar />
+            <PostsList />
+          </div>
+        )}/>
+        <Route path='/category/:selectedCategory' render={({match}) => (
+          <div className="content">
+            <Sidebar
+              selectedCategory = {match.params.selectedCategory}
+            />
+            <PostsList
+              key= {match.params.selectedCategory}
+              selectedCategory = {match.params.selectedCategory}
+            />
+          </div>
+        )}/>
+        <Route path='/post/:postId' render={({match}) => (
+          <div className="content">
+            <Sidebar
+              selectedCategory = 'no-category'
+            />
+            <Post
+              postId = {match.params.postId}
+            />
           </div>
         )}/>
       </div>
@@ -21,4 +43,4 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default withRouter(connect()(App));
