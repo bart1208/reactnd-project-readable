@@ -42,7 +42,7 @@ class PostsList extends Component {
     return (
       <div className="posts-list">
         <h2>Posts</h2>
-        <Link to='/' className='posts-addPost'><FaPlus/> Add Post</Link>
+        <Link to='/add-post' className='posts-addPost'><FaPlus/> Add Post</Link>
         <label className="order-posts-label" htmlFor="order_posts">Order by </label>
         <select id="order_posts" className="order-posts" value={this.props.sortMode} onChange={this.sortPosts}>
           <option value="voteScore">Vote score</option>

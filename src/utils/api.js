@@ -35,3 +35,31 @@ export const getCommentsByPostId = (postId) => (
     .then(res => res.json())
     .then(data => data)
 )
+export const addPost = (postData) => (
+  fetch(`${api}/posts`,{
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(postData)
+  }).then(res => res.json())
+)
+export const editPost = (postData) => (
+  fetch(`${api}/posts/${postData.id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(postData)
+  }).then(res => res.json())
+)
+export const deletePost = (postId) => (
+  fetch(`${api}/posts/${postId}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers
+    }
+  }).then(res => res)
+)

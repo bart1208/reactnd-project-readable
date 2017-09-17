@@ -7,6 +7,12 @@ a {
   color: inherit;
   text-decoration: none;
 }
+button {
+  background-color: #fff;
+  border: 1px solid #c4c4c4;
+  font-size: 16px;
+  padding: 5px;
+}
 .content {
   max-width: 1440px;
   margin: 40px auto;
@@ -15,6 +21,13 @@ a {
   grid-template-areas:
     "sidebar"
     "main-content"
+}
+.message {
+  border: 1px solid #c4c4c4;
+  padding: 10px;
+  margin-bottom: 40px;
+  background-color: #f7f7f7;
+  text-align: center;
 }
 .sidebar {
   grid-area: sidebar;
@@ -64,21 +77,32 @@ a {
   border: 1px solid #c4c4c4;
   padding: 10px;
 }
+.post {
+  border: 2px solid #c4c4c4;
+}
+.post-editPost {
+  border: 1px solid #c4c4c4;
+  padding: 5px;
+  margin-bottom: 15px;
+  display: inline-block;
+  margin-right: 10px;
+}
 .post-title {
   font-weight: bold;
   border-bottom: 1px solid #c4c4c4;
+  padding: 8px;
 }
 .post-title:hover {
   opacity: 0.7;
 }
 .post-body {
   border-bottom: 1px solid #c4c4c4;
-  padding: 20px 0;
+  padding: 20px 8px;
 }
 .post-author {
   font-size: 14px;
   display: inline-block;
-  margin-right: 20px;
+  margin: 0 20px 0 8px;
 }
 .post-category {
   font-size: 14px;
@@ -96,6 +120,57 @@ a {
   margin-right: 20px;
   float: right;
 }
+.comments-block {
+  margin: 50px 0 0 0;
+}
+.order-comments-label {
+  font-size: 14px;
+}
+.order-comments {
+  background-color: #fff;
+}
+.comments-list li {
+  border: 1px solid #c4c4c4;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+.comment-body {
+  border-bottom: 1px solid #c4c4c4;
+  padding: 8px;
+}
+.comment-author, .comment-date, .comment-voteScore {
+  display: inline-block;
+  margin: 0 30px 0 8px;
+  font-size: 14px;
+}
+.form-add-edit-post {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 3fr;
+}
+.form-add-edit-post label {
+  text-align: right;
+  margin-right: 20px;
+  vertical-align: middle;
+  padding: 5px 0;
+}
+.form-add-edit-post input,
+.form-add-edit-post textarea,
+.form-add-edit-post select {
+  margin-bottom: 20px;
+  padding: 5px;
+}
+.form-add-edit-post textarea {
+  grid-column: 2/5;
+}
+.submit-button {
+  grid-column: 2/3;
+  max-width: 150px;
+}
+.button-comment {
+  font-size: 13px;
+  padding: 2px;
+  margin-left: 20px;
+}
 
 @media only screen and (min-width: 500px) {
   .content {
@@ -103,5 +178,27 @@ a {
     grid-template-columns: 1fr 4fr;
     grid-template-areas:
       "sidebar main-content"
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .content {
+    margin: 40px;
+  }
+  .sidebar {
+    border: none;
+  }
+  .form-add-edit-post {
+    grid-template-columns: 1fr;
+  }
+  .form-add-edit-post label {
+    text-align: left;
+    margin-right: 0;
+  }
+  .form-add-edit-post textarea {
+    grid-column: auto;
+  }
+  .submit-button {
+    grid-column: auto;
   }
 }

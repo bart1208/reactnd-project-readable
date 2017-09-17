@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import Sidebar from './Sidebar';
 import PostsList from './PostsList';
 import Post from './Post';
+import AddPost from './AddPost';
+import EditPost from './EditPost';
 
 class App extends Component {
 
@@ -34,6 +36,24 @@ class App extends Component {
               selectedCategory = 'no-category'
             />
             <Post
+              postId = {match.params.postId}
+            />
+          </div>
+        )}/>
+        <Route path='/add-post' render={() => (
+          <div className="content">
+            <Sidebar
+              selectedCategory = 'no-category'
+            />
+            <AddPost/>
+          </div>
+        )}/>
+        <Route path='/edit-post/:postId' render={({match}) => (
+          <div className="content">
+            <Sidebar
+              selectedCategory = 'no-category'
+            />
+            <EditPost
               postId = {match.params.postId}
             />
           </div>
