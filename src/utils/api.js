@@ -63,3 +63,36 @@ export const deletePost = (postId) => (
     }
   }).then(res => res)
 )
+export const getCommentById = (commentId) => (
+  fetch(`${api}/comments/${commentId}`, { headers })
+    .then(res => res.json())
+    .then(data => data)
+)
+export const addComment = (commentData) => (
+  fetch(`${api}/comments`,{
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(commentData)
+  }).then(res => res.json())
+)
+export const deleteComment = (commentId) => (
+  fetch(`${api}/comments/${commentId}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers
+    }
+  }).then(res => res)
+)
+export const editComment = (commentData) => (
+  fetch(`${api}/comments/${commentData.id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(commentData)
+  }).then(res => res.json())
+)

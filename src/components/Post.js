@@ -10,7 +10,7 @@ import CommentsList from './CommentsList';
 class Post extends Component {
 
   componentWillMount() {
-    this.props.dispatchFetchPostById(this.props.postId),
+    this.props.dispatchFetchPostById(this.props.postId);
     this.props.dispatchLoadingPost("none");
   }
 
@@ -52,7 +52,7 @@ class Post extends Component {
               postId={this.props.postId}
             />
           </div>}
-          
+
       </div>
     )
   }

@@ -8,7 +8,9 @@ import {
   SET_COMMENTS,
   CHANGE_SORT_COMMENTS,
   LOADING_POST,
+  LOADING_COMMENT,
   SET_COMMENT_MODAL_OPEN,
+  SET_COMMENT,
 } from '../actions';
 
 const categories = (state = [], action) => {
@@ -59,6 +61,15 @@ const loadingPost = (state = { loading: "none" }, action) => {
   }
 }
 
+const loadingComment = (state = { loading: "none" }, action) => {
+  switch (action.type) {
+    case LOADING_COMMENT :
+      return { loading: action.loadingComment };
+    default :
+      return state;
+  }
+}
+
 const defaultComments = {
   sortComments: 'voteScore',
   commentsList: []
@@ -79,6 +90,14 @@ const comments = (state = defaultComments, action) => {
       return state;
   }
 }
+const comment = (state = {}, action) => {
+  switch (action.type) {
+    case SET_COMMENT :
+      return action.comment;
+    default :
+      return state;
+  }
+}
 
 const commentModalOpen = (state = {isOpen: false}, action) => {
   switch (action.type) {
@@ -94,6 +113,8 @@ export default combineReducers({
   posts,
   post,
   comments,
+  comment,
   loadingPost,
-  commentModalOpen
+  loadingComment,
+  commentModalOpen,
 });

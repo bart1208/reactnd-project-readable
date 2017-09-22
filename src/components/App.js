@@ -7,6 +7,7 @@ import PostsList from './PostsList';
 import Post from './Post';
 import AddPost from './AddPost';
 import EditPost from './EditPost';
+import Comment from './Comment';
 
 class App extends Component {
 
@@ -55,6 +56,16 @@ class App extends Component {
             />
             <EditPost
               postId = {match.params.postId}
+            />
+          </div>
+        )}/>
+        <Route path='/comments/:commentId' render={({match}) => (
+          <div className="content">
+            <Sidebar
+              selectedCategory = 'no-category'
+            />
+            <Comment
+              commentId = {match.params.commentId}
             />
           </div>
         )}/>
