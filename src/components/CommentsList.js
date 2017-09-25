@@ -4,9 +4,16 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import Loading from 'react-loading';
 import uuidv1 from 'uuid/v1';
-import { FaPlus } from 'react-icons/lib/fa';
+import { FaPlus, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
 import { postsSortFunctions } from '../utils/helpers';
-import { fetchCommentsByPostId, changeSortComments, setCommentModalOpen, loadingComment, fetchAddComment } from '../actions';
+import {
+  fetchCommentsByPostId,
+  changeSortComments,
+  setCommentModalOpen,
+  loadingComment,
+  fetchAddComment,
+  fetchVoteCommentScore
+} from '../actions';
 
 
 class CommentsList extends Component {
@@ -41,6 +48,16 @@ class CommentsList extends Component {
     }
 
     this.props.dispatchFetchAddComment(postData);
+  }
+
+  handleVotingComment = (vote, id) => {
+    const commentVote = {
+      id: id,
+      option: vote
+    }
+
+    this.props.dispatchFetchVoteCommentScore(commentVote);
+    this.props.dispatchFetchCommentsByPostId(this.props.postId);
   }
 
   render() {
@@ -81,6 +98,8 @@ class CommentsList extends Component {
               <div className="comment-author"><label><b>Author: </b></label>{comment.author}</div>
               <div className="comment-date">{comment.dateString}</div>
               <div className="comment-voteScore"><label><b>Score: </b></label>{comment.voteScore}</div>
+              <button className="comment-FaThumbsOUp" onClick={() => this.handleVotingComment('upVote', comment.id)}><FaThumbsOUp /></button>
+              <button className="comment-FaThumbsODown" onClick={() => this.handleVotingComment('downVote', comment.id)}><FaThumbsODown /></button>
             </li>
           ))}
         </ul>
@@ -124,7 +143,8 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchChangeSortComments: (data) => dispatch(changeSortComments(data)),
   dispatchSetCommentModalOpen: (data) => dispatch(setCommentModalOpen(data)),
   dispatchLoadingComment: (data) => dispatch(loadingComment(data)),
-  dispatchFetchAddComment: (data) => dispatch(fetchAddComment(data))
+  dispatchFetchAddComment: (data) => dispatch(fetchAddComment(data)),
+  dispatchFetchVoteCommentScore: (data) => dispatch(fetchVoteCommentScore(data))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CommentsList))

@@ -120,6 +120,21 @@ button {
   margin-right: 20px;
   float: right;
 }
+.post-FaThumbsOUp, .post-FaThumbsODown, .comment-FaThumbsOUp, .comment-FaThumbsODown {
+  border: none;
+  float: right;
+  padding: 0 5px;
+}
+.post-FaThumbsOUp:hover, .post-FaThumbsODown:hover, .comment-FaThumbsOUp:hover, .comment-FaThumbsODown:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+.post-FaThumbsOUp:focus, .post-FaThumbsODown:focus, .comment-FaThumbsOUp:focus, .comment-FaThumbsODown:focus {
+  outline: none;
+}
+.comment-FaThumbsOUp, .comment-FaThumbsODown {
+  float: none;
+}
 .comments-block {
   margin: 50px 0 0 0;
 }

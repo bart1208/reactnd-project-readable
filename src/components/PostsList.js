@@ -1,22 +1,33 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchPosts, changeSortPosts, fetchPostsByCategory } from '../actions';
 import { postsSortFunctions } from '../utils/helpers';
-import { FaPlus } from 'react-icons/lib/fa';
+import { FaPlus, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
+import {
+  fetchPosts,
+  changeSortPosts,
+  fetchPostsByCategory,
+  fetchVotePostScore
+} from '../actions';
 
 class PostsList extends Component {
 
   componentDidMount() {
-    if (this.props.selectedCategory) {
-      this.props.dispatchFetchPostsByCategory(this.props.selectedCategory)
-    } else {
-      this.props.dispatchFetchPosts()
-    }
+    this.props.dispatchFetchPostsOrPostsByCategory(this.props.selectedCategory)
   }
 
   sortPosts = (event) => {
     this.props.dispatchChangeSortPosts(event.target.value)
+  }
+
+  handleVotingPost = (vote, id) => {
+    const postVote = {
+      id: id,
+      option: vote
+    }
+
+    this.props.dispatchFetchVotePostScore(postVote)
+    this.props.dispatchFetchPostsOrPostsByCategory(this.props.selectedCategory)
   }
 
   render() {
@@ -58,6 +69,8 @@ class PostsList extends Component {
               <div className="post-author"><label><b>Author: </b></label>{post.author}</div>
               <div className="post-category"><label><b>Category: </b></label>{post.category}</div>
               <div className="post-date">{post.dateString}</div>
+              <button className="post-FaThumbsOUp" onClick={() => this.handleVotingPost('upVote', post.id)}><FaThumbsOUp /></button>
+              <button className="post-FaThumbsODown" onClick={() => this.handleVotingPost('downVote', post.id)}><FaThumbsODown /></button>
               <div className="post-voteScore"><label><b>Score: </b></label>{post.voteScore}</div>
             </li>
           ))}
@@ -74,8 +87,14 @@ const mapStateToProps = ({ posts }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchChangeSortPosts: (data) => dispatch(changeSortPosts(data)),
-  dispatchFetchPostsByCategory: (data) => dispatch(fetchPostsByCategory(data)),
-  dispatchFetchPosts: (data) => dispatch(fetchPosts(data)),
+  dispatchFetchVotePostScore: (data) => dispatch(fetchVotePostScore(data)),
+  dispatchFetchPostsOrPostsByCategory: (data) => {
+    if (data) {
+      return dispatch(fetchPostsByCategory(data))
+    } else {
+      return dispatch(fetchPosts())
+    }
+  },
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostsList));

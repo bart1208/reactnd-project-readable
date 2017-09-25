@@ -96,3 +96,23 @@ export const editComment = (commentData) => (
     body: JSON.stringify(commentData)
   }).then(res => res.json())
 )
+export const votingPost = (postVote) => (
+  fetch(`${api}/posts/${postVote.id}`,{
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(postVote)
+  }).then(res => res.json())
+)
+export const votingComment = (commentVote) => (
+  fetch(`${api}/comments/${commentVote.id}`,{
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(commentVote)
+  }).then(res => res.json())
+)

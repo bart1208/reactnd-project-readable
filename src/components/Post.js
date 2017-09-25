@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Loading from 'react-loading';
-import { fetchPostById, fetchDeletePost, loadingPost } from '../actions';
-import { FaEdit, FaTrash } from 'react-icons/lib/fa';
+import { FaEdit, FaTrash, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
+import {
+  fetchPostById,
+  fetchDeletePost,
+  loadingPost,
+  fetchVotePostScore
+} from '../actions';
+
 
 import CommentsList from './CommentsList';
 
@@ -21,6 +27,16 @@ class Post extends Component {
 
   deletePost = () => {
     this.props.dispatchFetchDeletePost(this.props.postId);
+  }
+
+  handleVotingPost = (vote, id) => {
+    const postVote = {
+      id: id,
+      option: vote
+    }
+
+    this.props.dispatchFetchVotePostScore(postVote)
+    this.props.dispatchFetchPostById(this.props.postId)
   }
 
   render() {
@@ -46,6 +62,8 @@ class Post extends Component {
               <div className="post-author"><label><b>Author: </b></label>{post.author}</div>
               <div className="post-category"><label><b>Category: </b></label>{post.category}</div>
               <div className="post-date">{this.redableDate(post.timestamp)}</div>
+              <button className="post-FaThumbsOUp" onClick={() => this.handleVotingPost('upVote', post.id)}><FaThumbsOUp /></button>
+              <button className="post-FaThumbsODown" onClick={() => this.handleVotingPost('downVote', post.id)}><FaThumbsODown /></button>
               <div className="post-voteScore"><label><b>Score: </b></label>{post.voteScore}</div>
             </div>
             <CommentsList
@@ -66,6 +84,7 @@ const mapStateToProps = ({ post, loadingPost }) => ({
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetchPostById: (data) => dispatch(fetchPostById(data)),
   dispatchLoadingPost: (data) => dispatch(loadingPost(data)),
+  dispatchFetchVotePostScore: (data) => dispatch(fetchVotePostScore(data)),
   dispatchFetchDeletePost: (data) => dispatch(fetchDeletePost(data))
 })
 

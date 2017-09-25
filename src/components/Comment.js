@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Loading from 'react-loading';
 import Modal from 'react-modal';
-import { FaEdit, FaTrash } from 'react-icons/lib/fa';
-import { fetchCommentById,
+import { FaEdit, FaTrash, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
+import {
+  fetchCommentById,
   loadingComment,
   fetchDeleteComment,
   setCommentModalOpen,
   fetchEditComment,
   setComment,
-  fetchAddComment
+  fetchVoteCommentScore,
 } from '../actions';
 
 class Comment extends Component {
@@ -47,13 +48,23 @@ class Comment extends Component {
       body: event.target.querySelector('[name=body]').value
     }
 
-    this.props.dispatchFetchAddComment(commentData);
+    this.props.dispatchFetchEditComment(commentData);
   }
   handleInputChange(event) {
     this.props.dispatchSetComment({
       ...this.props.comment,
       [event.target.name]: event.target.value
     });
+  }
+
+  handleVotingComment = (vote, id) => {
+    const commentVote = {
+      id: id,
+      option: vote
+    }
+
+    this.props.dispatchFetchVoteCommentScore(commentVote)
+    this.props.dispatchFetchCommentById(this.props.commentId)
   }
 
   render() {
@@ -77,6 +88,8 @@ class Comment extends Component {
               <div className="post-body">{comment.body}</div>
               <div className="post-author"><label><b>Author: </b></label>{comment.author}</div>
               <div className="post-date">{this.redableDate(comment.timestamp)}</div>
+              <button className="post-FaThumbsOUp" onClick={() => this.handleVotingComment('upVote', comment.id)}><FaThumbsOUp /></button>
+              <button className="post-FaThumbsODown" onClick={() => this.handleVotingComment('downVote', comment.id)}><FaThumbsODown /></button>
               <div className="post-voteScore"><label><b>Score: </b></label>{comment.voteScore}</div>
             </div>
           </div>}
@@ -119,7 +132,7 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchSetCommentModalOpen: (data) => dispatch(setCommentModalOpen(data)),
   dispatchFetchEditComment: (data) => dispatch(fetchEditComment(data)),
   dispatchSetComment: (data) => dispatch(setComment(data)),
-  dispatchFetchAddComment: (data) => dispatch(fetchAddComment(data))
+  dispatchFetchVoteCommentScore: (data) => dispatch(fetchVoteCommentScore(data)),
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Comment));

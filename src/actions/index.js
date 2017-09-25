@@ -75,6 +75,10 @@ export const fetchDeletePost = (postId) => dispatch => {
     //.then(post => dispatch(setPost(post)))
     .then(() => dispatch(loadingPost("loaded")))
 }
+export const fetchVotePostScore = (postVote) => dispatch => (
+  ReadableAPI
+    .votingPost(postVote)
+)
 
 // COMMENTS
 export const setCommentModalOpen = (commentModalOpen) => ({
@@ -126,4 +130,8 @@ export const fetchEditComment = (commentData) => dispatch => {
     .editComment(commentData)
     .then(comment => dispatch(setComment(comment)))
     .then(() => dispatch(loadingComment("loaded")))
+}
+export const fetchVoteCommentScore = (commentVote) => dispatch => {
+  ReadableAPI
+    .votingComment(commentVote)
 }
