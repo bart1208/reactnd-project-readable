@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import {
   SET_CATEGORIES,
   SET_POSTS,
+  ADD_NUMBER_COMMENTS_PER_POST,
   CHANGE_SORT_POSTS,
   SET_POST,
   SET_COMMENTS,
@@ -33,10 +34,20 @@ const posts = (state = defaultPosts, action) => {
         ...state,
         postsList: [...action.posts]
       };
+    case ADD_NUMBER_COMMENTS_PER_POST :
+      const postPosition = state.postsList.findIndex(element => (element.id === action.idPost));
+      let newPostsList = [...state.postsList];
+      if (typeof newPostsList[postPosition] === 'object')
+        newPostsList[postPosition].numberComments = action.numberComments;
+
+      return {
+        ...state,
+        postsList: newPostsList
+      };
     case CHANGE_SORT_POSTS :
       return {
         ...state,
-        sortPosts: action.sortPosts
+        sortPosts: newPostsList
       }
     default :
       return state;

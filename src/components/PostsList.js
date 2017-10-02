@@ -68,6 +68,7 @@ class PostsList extends Component {
               <div className="post-body">{post.body}</div>
               <div className="post-author"><label><b>Author: </b></label>{post.author}</div>
               <div className="post-category"><label><b>Category: </b></label>{post.category}</div>
+              <div className="post-category"><label><b>Comments: </b></label>{post.numberComments}</div>
               <div className="post-date">{post.dateString}</div>
               <button className="post-FaThumbsOUp" onClick={() => this.handleVotingPost('upVote', post.id)}><FaThumbsOUp /></button>
               <button className="post-FaThumbsODown" onClick={() => this.handleVotingPost('downVote', post.id)}><FaThumbsODown /></button>
