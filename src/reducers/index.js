@@ -4,6 +4,7 @@ import {
   SET_CATEGORIES,
   SET_POSTS,
   ADD_NUMBER_COMMENTS_PER_POST,
+  ADD_NUMBER_COMMENTS_POST,
   CHANGE_SORT_POSTS,
   SET_POST,
   SET_COMMENTS,
@@ -58,6 +59,11 @@ const post = (state = {}, action) => {
   switch (action.type) {
     case SET_POST :
       return action.post;
+    case ADD_NUMBER_COMMENTS_POST :
+      return {
+        ...state,
+        numberComments: action.numberComments
+      };
     default :
       return state;
   }

@@ -1,4 +1,4 @@
-const api = "http://localhost:5001";
+const api = "http://localhost:3001";
 
 // Generate a unique token
 let token = localStorage.token

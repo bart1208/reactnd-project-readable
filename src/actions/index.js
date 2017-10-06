@@ -3,6 +3,7 @@ import * as ReadableAPI from '../utils/api';
 export const SET_CATEGORIES = 'SET_CATEGORIES';
 export const SET_POSTS = 'SET_POSTS';
 export const ADD_NUMBER_COMMENTS_PER_POST = 'ADD_NUMBER_COMMENTS_PER_POST';
+export const ADD_NUMBER_COMMENTS_POST = 'ADD_NUMBER_COMMENTS_POST';
 export const CHANGE_SORT_POSTS = 'CHANGE_SORT_POSTS';
 export const SET_POST = 'SET_POST';
 export const SET_COMMENTS = 'SET_COMMENTS';
@@ -33,6 +34,11 @@ export const addNumberCommentsPerPost = (idPost, numberComments) => ({
   idPost,
   numberComments
 })
+export const addNumberCommentsPost = (idPost, numberComments) => ({
+  type: ADD_NUMBER_COMMENTS_POST,
+  idPost,
+  numberComments
+})
 export const changeSortPosts = (sortPosts) => ({
   type: CHANGE_SORT_POSTS,
   sortPosts
@@ -57,16 +63,25 @@ export const fetchPostsByCategory = (category) => dispatch => (
   ReadableAPI
     .getPostsByCategory(category)
     .then(posts => dispatch(setPosts(posts)))
+    .then(posts => {
+      posts.posts.map(post => dispatch(fetchNumberCommentsByPostId(post.id)));
+    })
 )
 export const fetchNumberCommentsByPostId = (postId) => dispatch => (
   ReadableAPI
     .getCommentsByPostId(postId)
     .then(comments => dispatch(addNumberCommentsPerPost(postId, comments.length)))
 )
+export const fetchNumberCommentsByPostIdSingle = (postId) => dispatch => {
+  ReadableAPI
+    .getCommentsByPostId(postId)
+    .then(comments => dispatch(addNumberCommentsPost(postId, comments.length)))
+}
 export const fetchPostById = (postId) => dispatch => (
   ReadableAPI
     .getPostById(postId)
     .then(post => dispatch(setPost(post)))
+    .then(post => dispatch(fetchNumberCommentsByPostIdSingle(postId)))
 )
 export const fetchAddPost = (postData) => dispatch => {
   dispatch(loadingPost("loading"));

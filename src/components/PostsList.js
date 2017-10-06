@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postsSortFunctions } from '../utils/helpers';
-import { FaPlus, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
+import { FaEdit, FaTrash, FaPlus, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
 import {
   fetchPosts,
   changeSortPosts,
+  fetchDeletePost,
   fetchPostsByCategory,
   fetchVotePostScore
 } from '../actions';
@@ -27,6 +28,11 @@ class PostsList extends Component {
     }
 
     this.props.dispatchFetchVotePostScore(postVote)
+    this.props.dispatchFetchPostsOrPostsByCategory(this.props.selectedCategory)
+  }
+
+  deletePost = (postId) => {
+    this.props.dispatchFetchDeletePost(postId);
     this.props.dispatchFetchPostsOrPostsByCategory(this.props.selectedCategory)
   }
 
@@ -62,6 +68,8 @@ class PostsList extends Component {
         <ul className="posts-list">
           {enhanceOrderedPostsList.map((post) => (
             <li key={post.id}>
+              <button className='post-deletePost deletePostList' onClick={() => this.deletePost(post.id)}><FaTrash/> Delete Post</button>
+              <Link to={`/edit-post/${post.id}`} className='post-editPost deletePostList'><FaEdit/> Edit Post</Link>
               <Link to={`/post/${post.id}`}>
                 <div className="post-title">{post.title}</div>
               </Link>
@@ -89,6 +97,7 @@ const mapStateToProps = ({ posts }) => ({
 const mapDispatchToProps = (dispatch) => ({
   dispatchChangeSortPosts: (data) => dispatch(changeSortPosts(data)),
   dispatchFetchVotePostScore: (data) => dispatch(fetchVotePostScore(data)),
+  dispatchFetchDeletePost: (data) => dispatch(fetchDeletePost(data)),
   dispatchFetchPostsOrPostsByCategory: (data) => {
     if (data) {
       return dispatch(fetchPostsByCategory(data))

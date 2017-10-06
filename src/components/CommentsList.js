@@ -12,7 +12,8 @@ import {
   setCommentModalOpen,
   loadingComment,
   fetchAddComment,
-  fetchVoteCommentScore
+  fetchVoteCommentScore,
+  fetchPostById
 } from '../actions';
 
 
@@ -29,13 +30,16 @@ class CommentsList extends Component {
   }
 
   handleAddComment = () => {
-    this.props.dispatchSetCommentModalOpen(true)
+    this.props.dispatchSetCommentModalOpen(true);
   }
+
   handleCloseModal = () => {
     this.props.dispatchFetchCommentsByPostId(this.props.postId);
     this.props.dispatchSetCommentModalOpen(false);
     this.props.dispatchLoadingComment("none");
+    this.props.dispatchFetchPostById(this.props.postId);
   }
+
   handleSubmitComment(event) {
     event.preventDefault();
 
@@ -48,6 +52,7 @@ class CommentsList extends Component {
     }
 
     this.props.dispatchFetchAddComment(postData);
+    this.props.dispatchFetchPostById(this.props.postId);
   }
 
   handleVotingComment = (vote, id) => {
@@ -144,7 +149,8 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchSetCommentModalOpen: (data) => dispatch(setCommentModalOpen(data)),
   dispatchLoadingComment: (data) => dispatch(loadingComment(data)),
   dispatchFetchAddComment: (data) => dispatch(fetchAddComment(data)),
-  dispatchFetchVoteCommentScore: (data) => dispatch(fetchVoteCommentScore(data))
+  dispatchFetchVoteCommentScore: (data) => dispatch(fetchVoteCommentScore(data)),
+  dispatchFetchPostById: (data) => dispatch(fetchPostById(data)),
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CommentsList))
