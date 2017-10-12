@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Loading from 'react-loading';
 import { FaEdit, FaTrash, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
-import {
-  fetchPostById,
-  fetchDeletePost,
-  loadingPost,
-  fetchVotePostScore
-} from '../actions';
+import * as actions from '../actions';
 
 
 import CommentsList from './CommentsList';
@@ -45,6 +40,9 @@ class Post extends Component {
     return (
       <div className="post-block">
         <h2>Post</h2>
+
+        {post.id == null &&
+          <Redirect to="/404" />}
 
         {this.props.loadingPost.loading === "loaded" &&
           <div className="message">Post deleted successfully</div>}
@@ -83,10 +81,10 @@ const mapStateToProps = ({ post, loadingPost }) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchFetchPostById: (data) => dispatch(fetchPostById(data)),
-  dispatchLoadingPost: (data) => dispatch(loadingPost(data)),
-  dispatchFetchVotePostScore: (data) => dispatch(fetchVotePostScore(data)),
-  dispatchFetchDeletePost: (data) => dispatch(fetchDeletePost(data))
+  dispatchFetchPostById: (data) => dispatch(actions.fetchPostById(data)),
+  dispatchLoadingPost: (data) => dispatch(actions.loadingPost(data)),
+  dispatchFetchVotePostScore: (data) => dispatch(actions.fetchVotePostScore(data)),
+  dispatchFetchDeletePost: (data) => dispatch(actions.fetchDeletePost(data))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Post));

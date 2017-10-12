@@ -90,14 +90,15 @@ button {
 }
 .post-title {
   font-weight: bold;
-  border-bottom: 1px solid #c4c4c4;
   padding: 8px;
+  display: inline-block;
 }
 .post-title:hover {
   opacity: 0.7;
 }
 .post-body {
   border-bottom: 1px solid #c4c4c4;
+  border-top: 1px solid #c4c4c4;
   padding: 20px 8px;
 }
 .post-author {
@@ -206,6 +207,15 @@ button {
 .deletePostList {
   float: right;
 }
+
+.fof{display:block; width:100%; text-align:center;}
+.fof .hgroup{display:block; width:80%; margin:0 auto; padding:0;}
+.fof .hgroup h1, .fof .hgroup h2{margin:0 0 0 40px; padding:0; text-transform:uppercase;}
+.fof .hgroup h1{font-size:200px;}
+.fof .hgroup h2{font-size:60px;}
+.fof .hgroup h2 span{display:block; font-size:30px;}
+.fof p{margin:25px 0 0 0; padding:0; font-size:16px;}
+.fof p:first-child{margin-top:0;}
 
 @media only screen and (min-width: 500px) {
   .content {

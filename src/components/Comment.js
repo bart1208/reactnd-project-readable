@@ -4,21 +4,13 @@ import { connect } from 'react-redux';
 import Loading from 'react-loading';
 import Modal from 'react-modal';
 import { FaEdit, FaTrash, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
-import {
-  fetchCommentById,
-  loadingComment,
-  fetchDeleteComment,
-  setCommentModalOpen,
-  fetchEditComment,
-  setComment,
-  fetchVoteCommentScore,
-} from '../actions';
+import * as actions from '../actions';
 
 class Comment extends Component {
 
   componentWillMount() {
     this.props.dispatchFetchCommentById(this.props.commentId);
-    this.props.dispatchSetCommentModalOpen(false);
+    this.props.dispatchSetCommentModalOpen('false');
     this.props.dispatchLoadingComment("none");
   }
 
@@ -32,11 +24,11 @@ class Comment extends Component {
   }
 
   handleEditComment = () => {
-    this.props.dispatchSetCommentModalOpen(true)
+    this.props.dispatchSetCommentModalOpen('modal_edit-comment')
   }
   handleCloseModal = () => {
     this.props.dispatchFetchCommentById(this.props.commentId);
-    this.props.dispatchSetCommentModalOpen(false);
+    this.props.dispatchSetCommentModalOpen('false');
     this.props.dispatchLoadingComment("none");
   }
   handleSubmitComment(event) {
@@ -95,7 +87,7 @@ class Comment extends Component {
           </div>}
 
         <Modal
-          isOpen={this.props.commentModalOpen.isOpen}
+          isOpen={this.props.commentModalOpen.isOpen === 'modal_edit-comment'}
           onRequestClose={this.handleCloseModal}
           contentLabel="Modal"
         >
@@ -126,13 +118,13 @@ const mapStateToProps = ({ comment, loadingComment, commentModalOpen }) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchFetchCommentById: (data) => dispatch(fetchCommentById(data)),
-  dispatchLoadingComment: (data) => dispatch(loadingComment(data)),
-  dispatchFetchDeleteComment: (data) => dispatch(fetchDeleteComment(data)),
-  dispatchSetCommentModalOpen: (data) => dispatch(setCommentModalOpen(data)),
-  dispatchFetchEditComment: (data) => dispatch(fetchEditComment(data)),
-  dispatchSetComment: (data) => dispatch(setComment(data)),
-  dispatchFetchVoteCommentScore: (data) => dispatch(fetchVoteCommentScore(data)),
+  dispatchFetchCommentById: (data) => dispatch(actions.fetchCommentById(data)),
+  dispatchLoadingComment: (data) => dispatch(actions.loadingComment(data)),
+  dispatchFetchDeleteComment: (data) => dispatch(actions.fetchDeleteComment(data)),
+  dispatchSetCommentModalOpen: (data) => dispatch(actions.setCommentModalOpen(data)),
+  dispatchFetchEditComment: (data) => dispatch(actions.fetchEditComment(data)),
+  dispatchSetComment: (data) => dispatch(actions.setComment(data)),
+  dispatchFetchVoteCommentScore: (data) => dispatch(actions.fetchVoteCommentScore(data)),
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Comment));

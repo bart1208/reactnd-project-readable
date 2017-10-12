@@ -1,24 +1,12 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import Loading from 'react-loading';
 import uuidv1 from 'uuid/v1';
 import { FaEdit, FaTrash, FaPlus, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
 import { postsSortFunctions } from '../utils/helpers';
-import {
-  fetchCommentById,
-  fetchCommentsByPostId,
-  changeSortComments,
-  setCommentModalOpen,
-  loadingComment,
-  fetchAddComment,
-  fetchDeleteComment,
-  fetchEditComment,
-  fetchVoteCommentScore,
-  fetchPostById,
-  setComment
-} from '../actions';
+import * as actions from '../actions';
 
 
 class CommentsList extends Component {
@@ -71,6 +59,7 @@ class CommentsList extends Component {
   deleteComment = (commentId) => {
     this.props.dispatchFetchDeleteComment(commentId);
     this.props.dispatchFetchCommentsByPostId(this.props.postId);
+    this.props.dispatchFetchPostById(this.props.postId);
   }
 
   handleEditComment = (commentId) => {
@@ -128,7 +117,7 @@ class CommentsList extends Component {
           {enhanceOrderedCommentsList.map((comment) => (
             <li key={comment.id}>
               <div className="comment-body">
-                <Link to={`/comments/${comment.id}`}>{comment.body}</Link>
+                {comment.body}
               </div>
               <div className="comment-author"><label><b>Author: </b></label>{comment.author}</div>
               <div className="comment-date">{comment.dateString}</div>
@@ -197,17 +186,17 @@ const mapStateToProps = ({ comments, commentModalOpen, loadingComment, comment }
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchFetchCommentById: (data) => dispatch(fetchCommentById(data)),
-  dispatchFetchCommentsByPostId: (data) => dispatch(fetchCommentsByPostId(data)),
-  dispatchChangeSortComments: (data) => dispatch(changeSortComments(data)),
-  dispatchSetCommentModalOpen: (data) => dispatch(setCommentModalOpen(data)),
-  dispatchLoadingComment: (data) => dispatch(loadingComment(data)),
-  dispatchFetchAddComment: (data) => dispatch(fetchAddComment(data)),
-  dispatchFetchDeleteComment: (data) => dispatch(fetchDeleteComment(data)),
-  dispatchFetchEditComment: (data) => dispatch(fetchEditComment(data)),
-  dispatchFetchVoteCommentScore: (data) => dispatch(fetchVoteCommentScore(data)),
-  dispatchFetchPostById: (data) => dispatch(fetchPostById(data)),
-  dispatchSetComment: (data) => dispatch(setComment(data)),
+  dispatchFetchCommentById: (data) => dispatch(actions.fetchCommentById(data)),
+  dispatchFetchCommentsByPostId: (data) => dispatch(actions.fetchCommentsByPostId(data)),
+  dispatchChangeSortComments: (data) => dispatch(actions.changeSortComments(data)),
+  dispatchSetCommentModalOpen: (data) => dispatch(actions.setCommentModalOpen(data)),
+  dispatchLoadingComment: (data) => dispatch(actions.loadingComment(data)),
+  dispatchFetchAddComment: (data) => dispatch(actions.fetchAddComment(data)),
+  dispatchFetchDeleteComment: (data) => dispatch(actions.fetchDeleteComment(data)),
+  dispatchFetchEditComment: (data) => dispatch(actions.fetchEditComment(data)),
+  dispatchFetchVoteCommentScore: (data) => dispatch(actions.fetchVoteCommentScore(data)),
+  dispatchFetchPostById: (data) => dispatch(actions.fetchPostById(data)),
+  dispatchSetComment: (data) => dispatch(actions.setComment(data)),
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CommentsList))

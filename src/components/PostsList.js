@@ -3,13 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postsSortFunctions } from '../utils/helpers';
 import { FaEdit, FaTrash, FaPlus, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
-import {
-  fetchPosts,
-  changeSortPosts,
-  fetchDeletePost,
-  fetchPostsByCategory,
-  fetchVotePostScore
-} from '../actions';
+import * as actions from '../actions';
 
 class PostsList extends Component {
 
@@ -95,14 +89,14 @@ const mapStateToProps = ({ posts }) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchChangeSortPosts: (data) => dispatch(changeSortPosts(data)),
-  dispatchFetchVotePostScore: (data) => dispatch(fetchVotePostScore(data)),
-  dispatchFetchDeletePost: (data) => dispatch(fetchDeletePost(data)),
+  dispatchChangeSortPosts: (data) => dispatch(actions.changeSortPosts(data)),
+  dispatchFetchVotePostScore: (data) => dispatch(actions.fetchVotePostScore(data)),
+  dispatchFetchDeletePost: (data) => dispatch(actions.fetchDeletePost(data)),
   dispatchFetchPostsOrPostsByCategory: (data) => {
     if (data) {
-      return dispatch(fetchPostsByCategory(data))
+      return dispatch(actions.fetchPostsByCategory(data))
     } else {
-      return dispatch(fetchPosts())
+      return dispatch(actions.fetchPosts())
     }
   },
 })

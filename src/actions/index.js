@@ -1,21 +1,9 @@
 import * as ReadableAPI from '../utils/api';
-
-export const SET_CATEGORIES = 'SET_CATEGORIES';
-export const SET_POSTS = 'SET_POSTS';
-export const ADD_NUMBER_COMMENTS_PER_POST = 'ADD_NUMBER_COMMENTS_PER_POST';
-export const ADD_NUMBER_COMMENTS_POST = 'ADD_NUMBER_COMMENTS_POST';
-export const CHANGE_SORT_POSTS = 'CHANGE_SORT_POSTS';
-export const SET_POST = 'SET_POST';
-export const SET_COMMENTS = 'SET_COMMENTS';
-export const SET_COMMENT = 'SET_COMMENT';
-export const CHANGE_SORT_COMMENTS = 'CHANGE_SORT_COMMENTS';
-export const LOADING_POST = 'LOADING_POST';
-export const SET_COMMENT_MODAL_OPEN = 'SET_COMMENT_MODAL_OPEN';
-export const LOADING_COMMENT = 'LOADING_COMMENT';
+import * as Type from './types';
 
 // CATEGORIES
 export const setCategories = (categories) => ({
-  type: SET_CATEGORIES,
+  type: Type.SET_CATEGORIES,
   categories
 })
 export const fetchCategories = () => dispatch => (
@@ -26,29 +14,29 @@ export const fetchCategories = () => dispatch => (
 
 // POSTS
 export const setPosts = (posts) => ({
-  type: SET_POSTS,
+  type: Type.SET_POSTS,
   posts
 })
 export const addNumberCommentsPerPost = (idPost, numberComments) => ({
-  type: ADD_NUMBER_COMMENTS_PER_POST,
+  type: Type.ADD_NUMBER_COMMENTS_PER_POST,
   idPost,
   numberComments
 })
 export const addNumberCommentsPost = (idPost, numberComments) => ({
-  type: ADD_NUMBER_COMMENTS_POST,
+  type: Type.ADD_NUMBER_COMMENTS_POST,
   idPost,
   numberComments
 })
 export const changeSortPosts = (sortPosts) => ({
-  type: CHANGE_SORT_POSTS,
+  type: Type.CHANGE_SORT_POSTS,
   sortPosts
 })
 export const setPost = (post) => ({
-  type: SET_POST,
+  type: Type.SET_POST,
   post
 })
 export const loadingPost = (loadingPost) => ({
-  type: LOADING_POST,
+  type: Type.LOADING_POST,
   loadingPost
 })
 export const fetchPosts = () => dispatch => (
@@ -111,23 +99,23 @@ export const fetchVotePostScore = (postVote) => dispatch => (
 
 // COMMENTS
 export const setCommentModalOpen = (commentModalOpen) => ({
-  type: SET_COMMENT_MODAL_OPEN,
+  type: Type.SET_COMMENT_MODAL_OPEN,
   commentModalOpen
 })
 export const setComments = (comments) => ({
-  type: SET_COMMENTS,
+  type: Type.SET_COMMENTS,
   comments
 })
 export const setComment = (comment) => ({
-  type: SET_COMMENT,
+  type: Type.SET_COMMENT,
   comment
 })
 export const changeSortComments = (sortComments) => ({
-  type: CHANGE_SORT_COMMENTS,
+  type: Type.CHANGE_SORT_COMMENTS,
   sortComments
 })
 export const loadingComment = (loadingComment) => ({
-  type: LOADING_COMMENT,
+  type: Type.LOADING_COMMENT,
   loadingComment
 })
 export const fetchCommentsByPostId = (postId) => dispatch => (
