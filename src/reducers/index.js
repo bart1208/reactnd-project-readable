@@ -116,7 +116,7 @@ const comment = (state = {}, action) => {
   }
 }
 
-const commentModalOpen = (state = {isOpen: false}, action) => {
+const commentModalOpen = (state = {isOpen: 'false'}, action) => {
   switch (action.type) {
     case SET_COMMENT_MODAL_OPEN :
       return { isOpen: action.commentModalOpen }

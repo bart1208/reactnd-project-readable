@@ -172,6 +172,13 @@ button {
   max-width: 700px;
   margin: auto;
 }
+.comment-deleteComment, .comment-editComment {
+  font-size: 12px;
+  margin: 4px 0 4px 30px;
+}
+.comment-deleteComment:hover, .comment-editComment:hover {
+  cursor: pointer;
+}
 .form-add-edit-post label {
   text-align: right;
   margin-right: 20px;
