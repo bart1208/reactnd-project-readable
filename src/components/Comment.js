@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Loading from 'react-loading';
 import Modal from 'react-modal';
-import { FaEdit, FaTrash, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
+import { FaEdit, FaTrash, FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 import * as actions from '../actions';
 
 class Comment extends Component {
@@ -80,8 +80,8 @@ class Comment extends Component {
               <div className="post-body">{comment.body}</div>
               <div className="post-author"><label><b>Author: </b></label>{comment.author}</div>
               <div className="post-date">{this.redableDate(comment.timestamp)}</div>
-              <button className="post-FaThumbsOUp" onClick={() => this.handleVotingComment('upVote', comment.id)}><FaThumbsOUp /></button>
-              <button className="post-FaThumbsODown" onClick={() => this.handleVotingComment('downVote', comment.id)}><FaThumbsODown /></button>
+              <button className="post-FaThumbsOUp" onClick={() => this.handleVotingComment('upVote', comment.id)}><FaRegThumbsUp /></button>
+              <button className="post-FaThumbsODown" onClick={() => this.handleVotingComment('downVote', comment.id)}><FaRegThumbsDown /></button>
               <div className="post-voteScore"><label><b>Score: </b></label>{comment.voteScore}</div>
             </div>
           </div>}

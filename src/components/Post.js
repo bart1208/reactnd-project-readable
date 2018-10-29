@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Loading from 'react-loading';
-import { FaEdit, FaTrash, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
+import { FaEdit, FaTrash, FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 import * as actions from '../actions';
 
 
@@ -61,8 +61,8 @@ class Post extends Component {
               <div className="post-category"><label><b>Category: </b></label>{post.category}</div>
               <div className="post-category"><label><b>Comments: </b></label>{post.numberComments}</div>
               <div className="post-date">{this.redableDate(post.timestamp)}</div>
-              <button className="post-FaThumbsOUp" onClick={() => this.handleVotingPost('upVote', post.id)}><FaThumbsOUp /></button>
-              <button className="post-FaThumbsODown" onClick={() => this.handleVotingPost('downVote', post.id)}><FaThumbsODown /></button>
+              <button className="post-FaThumbsOUp" onClick={() => this.handleVotingPost('upVote', post.id)}><FaRegThumbsUp /></button>
+              <button className="post-FaThumbsODown" onClick={() => this.handleVotingPost('downVote', post.id)}><FaRegThumbsDown /></button>
               <div className="post-voteScore"><label><b>Score: </b></label>{post.voteScore}</div>
             </div>
             <CommentsList

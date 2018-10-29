@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import Loading from 'react-loading';
 import uuidv1 from 'uuid/v1';
-import { FaEdit, FaTrash, FaPlus, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
+import { FaEdit, FaTrash, FaPlus, FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 import { postsSortFunctions } from '../utils/helpers';
 import * as actions from '../actions';
 
@@ -122,8 +122,8 @@ class CommentsList extends Component {
               <div className="comment-author"><label><b>Author: </b></label>{comment.author}</div>
               <div className="comment-date">{comment.dateString}</div>
               <div className="comment-voteScore"><label><b>Score: </b></label>{comment.voteScore}</div>
-              <button className="comment-FaThumbsOUp" onClick={() => this.handleVotingComment('upVote', comment.id)}><FaThumbsOUp /></button>
-              <button className="comment-FaThumbsODown" onClick={() => this.handleVotingComment('downVote', comment.id)}><FaThumbsODown /></button>
+              <button className="comment-FaThumbsOUp" onClick={() => this.handleVotingComment('upVote', comment.id)}><FaRegThumbsUp /></button>
+              <button className="comment-FaThumbsODown" onClick={() => this.handleVotingComment('downVote', comment.id)}><FaRegThumbsDown /></button>
               <button className='comment-deleteComment' onClick={() => this.deleteComment(comment.id)}><FaTrash/> Delete Comment</button>
               <button className='comment-editComment' onClick={() => this.handleEditComment(comment.id)}><FaEdit/> Edit Comment</button>
             </li>

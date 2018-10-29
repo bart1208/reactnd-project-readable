@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postsSortFunctions } from '../utils/helpers';
-import { FaEdit, FaTrash, FaPlus, FaThumbsOUp, FaThumbsODown } from 'react-icons/lib/fa';
+import { FaEdit, FaTrash, FaPlus, FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 import * as actions from '../actions';
 
 class PostsList extends Component {
@@ -72,8 +72,8 @@ class PostsList extends Component {
               <div className="post-category"><label><b>Category: </b></label>{post.category}</div>
               <div className="post-category"><label><b>Comments: </b></label>{post.numberComments}</div>
               <div className="post-date">{post.dateString}</div>
-              <button className="post-FaThumbsOUp" onClick={() => this.handleVotingPost('upVote', post.id)}><FaThumbsOUp /></button>
-              <button className="post-FaThumbsODown" onClick={() => this.handleVotingPost('downVote', post.id)}><FaThumbsODown /></button>
+              <button className="post-FaThumbsOUp" onClick={() => this.handleVotingPost('upVote', post.id)}><FaRegThumbsUp /></button>
+              <button className="post-FaThumbsODown" onClick={() => this.handleVotingPost('downVote', post.id)}><FaRegThumbsDown /></button>
               <div className="post-voteScore"><label><b>Score: </b></label>{post.voteScore}</div>
             </li>
           ))}
